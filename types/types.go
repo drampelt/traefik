@@ -317,7 +317,13 @@ type Digest struct {
 
 // Forward authentication
 type Forward struct {
-	Address string
+	Address             string
+	AuthResponseHeaders map[string]*AuthResponseHeader
+}
+
+type AuthResponseHeader struct {
+	Name string
+	As   string
 }
 
 // CanonicalDomain returns a lower case domain with trim space

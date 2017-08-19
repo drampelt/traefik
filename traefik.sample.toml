@@ -306,12 +306,16 @@
 #
 # To enable forward auth on an entrypoint
 # This configuration will first forward the request to http://authserver.com/auth. If the response code is 2XX,
-# access is granted and the original request is performed. Otherwise, the response from the auth server is returned.
+# access is granted and the original request is performed with the X-Authenticated-User header set to the returned
+# value of the X-Auth-User header from the auth server. Otherwise, the response from the auth server is returned.
 # [entryPoints]
 #   [entryPoints.http]
 #   address = ":80"
-#   [entryPoints.http.auth.forward]
-#   address = "http://authserver.com/auth"
+#     [entryPoints.http.auth.forward]
+#     address = "http://authserver.com/auth"
+#       [entryPoints.http.auth.forward.authResponseHeaders.user]
+#       name = "X-Auth-User"
+#       as = "X-Authenticated-User"
 #
 # To specify an https entrypoint with a minimum TLS version, and specifying an array of cipher suites (from crypto/tls):
 # [entryPoints]
